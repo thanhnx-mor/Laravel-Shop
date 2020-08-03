@@ -17,7 +17,6 @@ class CategoryController extends Controller
         return view('category.index');
     }
     public function create() {
-        $rawData = Category::all();
         $htmlOptions = $this->categoryRecursive(0);
         return view('category.add', compact('htmlOptions'));
     }
@@ -25,8 +24,8 @@ class CategoryController extends Controller
         $rawData = Category::all();
         foreach ($rawData as $data) {
             if ( $data['parent_id'] == $id ) {
-                $this->htmlSelect .= "<option value=".$data['id'].">".$text.$data['id'] . "</option>";
-                $this->categoryRecursive($data['id'], '-');
+                $this->htmlSelect .= '<option value="'.$data["id"].'">' .$text.$data['name']. '</option>';
+                $this->categoryRecursive($data['id'], '--');
             }
         }
         return $this->htmlSelect;

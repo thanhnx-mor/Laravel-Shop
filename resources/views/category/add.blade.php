@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label for="category_parents">Chọn danh mục cha</label>
                                 <select class="form-control" id="category_parents">
-                                    {{ $htmlOptions }}
+                                    {!! $htmlOptions !!}
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Thêm mới</button>
