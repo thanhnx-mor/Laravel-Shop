@@ -29,4 +29,20 @@ Route::prefix('categories')->group(function () {
         'as' => 'categories.create',
         'uses' => 'CategoryController@create',
     ]);
+    Route::post('/store', [
+        'as' => 'categories.store',
+        'uses' => 'CategoryController@store',
+    ]);
+    Route::get('/edit/{id}', [
+        'as' => 'categories.edit',
+        'uses' => 'CategoryController@edit',
+    ]);
+    Route::post('/update/{id}', [
+        'as' => 'categories.update',
+        'uses' => 'CategoryController@update',
+    ]);
+    Route::get('/delete/{id}', [
+        'as' => 'categories.delete',
+        'uses' => 'CategoryController@delete',
+    ]);
 });

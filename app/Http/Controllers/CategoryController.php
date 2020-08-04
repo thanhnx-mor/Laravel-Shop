@@ -4,30 +4,68 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\Components\Recursive;
 
 class CategoryController extends Controller
 {
-    private $htmlSelect;
-    public function __construct()
+    private $category;
+    public function __construct(Category $category)
     {
-        $this->htmlSelect = '';
+        $this->category = $category;
     }
 
-    public function index() {
-        return view('category.index');
+    public function index()
+    {
+        $categories = $this->category->latest()->paginate(5);
+        return view('category.index', compact('categories'));
     }
-    public function create() {
-        $htmlOptions = $this->categoryRecursive(0);
+
+    public function create()
+    {
+        $htmlOptions = $this->getCategory();
         return view('category.add', compact('htmlOptions'));
     }
-    function categoryRecursive($id, $text = '') {
-        $rawData = Category::all();
-        foreach ($rawData as $data) {
-            if ( $data['parent_id'] == $id ) {
-                $this->htmlSelect .= '<option value="'.$data["id"].'">' .$text.$data['name']. '</option>';
-                $this->categoryRecursive($data['id'], '--');
-            }
-        }
-        return $this->htmlSelect;
+
+    public function store(Request $request)
+    {
+        $this->category->create(
+            [
+                'name' => $request->name,
+                'parent_id' => $request->parent_id,
+                'slug' => str_slug($request->name)
+            ]
+        );
+        return redirect(route('categories.create'));
+    }
+
+    public function edit($id)
+    {
+        $category = $this->category->find($id);
+        $htmlOptions = $this->getCategory($category->parent_id);
+        return view('category.edit', compact('category', 'htmlOptions'));
+    }
+
+    public function update($id, Request $request)
+    {
+       $this->category->find($id)->update([
+           'name' => $request->name,
+           'parent_id' => $request->parent_id,
+           'slug' => str_slug($request->name)
+       ]);
+       return redirect(route('categories.index'));
+    }
+
+    public function delete($id)
+    {
+        $this->category::where('id', $id)->delete();
+        return redirect(route('categories.index'));
+    }
+
+    public function getCategory($parentId = '')
+    {
+        $listCategory = $this->category->all();
+        $recursive = new Recursive($listCategory);
+        $htmlOptions = $recursive->categoryRecursive($parentId);
+        return $htmlOptions;
     }
 }
