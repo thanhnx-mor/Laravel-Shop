@@ -8,6 +8,9 @@ class AdminController extends Controller
 {
     public function index()
     {
+        if (auth()->check()) {
+            return redirect()->to('home');
+        }
         return view('login.index');
     }
 
