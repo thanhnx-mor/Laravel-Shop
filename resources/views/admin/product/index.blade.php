@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex justify-content-end">
-                            <a href="" class="btn btn-primary mb-2">
+                            <a href="{{ route('product.create') }}" class="btn btn-primary mb-2">
                                 Thêm mới sản phẩm
                             </a>
                         </div>

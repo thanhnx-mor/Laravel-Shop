@@ -12,7 +12,10 @@
 */
 
 
-Route::get('/', 'AdminController@index');
+Route::get('/', [
+    'as' => 'admin.index',
+    'uses' => 'AdminController@index'
+]);
 Route::post('/', [
     'as' => 'admin.login',
     'uses' => 'AdminController@login'
@@ -81,6 +84,17 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [
             'as' => 'product.index',
             'uses' => 'AdminProductController@index',
+        ]);
+
+        Route::get('/create', [
+            'as' => 'product.create',
+            'uses' => 'AdminProductController@create',
+        ]);
+
+
+        Route::post('/store', [
+            'as' => 'product.store',
+            'uses' => 'AdminProductController@store',
         ]);
 
         Route::get('/edit/{id}', [

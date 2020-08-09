@@ -21,7 +21,7 @@ class AdminController extends Controller
         if (auth()->attempt($credentials, $remember)) {
             return redirect()->to('home');
         } else {
-            dd(222);
+            return redirect()->to('/');
         }
     }
 }
