@@ -36,13 +36,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="content">Nội dung</label>
-                                <textarea class="form-control tinymce_editor_init" id="content" name="content" rows="3"></textarea>
+                                <label for="contents">Nội dung</label>
+                                <textarea class="form-control tinymce_editor_init" id="contents" name="contents" rows="3"></textarea>
                             </div>
 
                             <div class="form-group">
-                                <label for="category_parents">Chọn danh mục</label>
-                                <select class="form-control" id="category_parents" name="parent_id" multiple="multiple">
+                                <label for="category_id">Chọn danh mục</label>
+                                <select class="form-control" id="category_id" name="category_id" multiple="multiple">
                                     <option value="0">Chọn danh mục</option>
                                     {!! $htmlOptions !!}
                                 </select>

@@ -3,7 +3,7 @@ $(".tags_select_choose").select2({
     tokenSeparators: [',', ' ']
 });
 
-$("#category_parents").select2({
+$("#category_id").select2({
     tags: true,
     placeholder: 'Chọn dạng mục',
     tokenSeparators: [',', ' ']
