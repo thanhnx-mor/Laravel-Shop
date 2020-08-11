@@ -50,7 +50,7 @@
 
                             <div class="form-group">
                                 <label for="tags_select_choose">Nhập tags cho sản phẩm</label>
-                                <select class="form-control tags_select_choose" id="tags_select_choose" multiple="multiple">
+                                <select class="form-control tags_select_choose" name="tags[]" id="tags_select_choose" multiple="multiple">
                                 </select>
                             </div>
 

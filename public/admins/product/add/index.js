@@ -1,6 +1,6 @@
 $(".tags_select_choose").select2({
     tags: true,
-    tokenSeparators: [',', ' ']
+    tokenSeparators: [',']
 });
 
 $("#category_id").select2({
