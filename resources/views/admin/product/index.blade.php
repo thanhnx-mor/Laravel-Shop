@@ -29,26 +29,28 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($products as $product)
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>IP4</td>
-                                    <td>100.000.000</td>
+                                    <th scope="row">{{$product->id}}</th>
+                                    <td>{{$product->name}}</td>
+                                    <td>{{ number_format($product->price) }}</td>
                                     <td>
-                                        <img src="/" alt="">
+                                        <img class="feature-image" src="{{ $product->feature_image_path }}" alt="">
                                     </td>
-                                    <td>Dien thoai</td>
+                                    <td>{{ optional($product->category)->name }}</td>
                                     <td>
-                                        <a href="{{ route('product.edit', ['id' => 1 ]) }}"
+                                        <a href="{{ route('product.edit', ['id' => $product->id ]) }}"
                                            class="btn btn-secondary mr-2">Edit</a>
-                                        <a href="{{ route('product.delete', ['id' => 1 ]) }}"
+                                        <a href="{{ route('product.delete', ['id' => $product->id ]) }}"
                                            class="btn btn-danger" onclick="onHandleDelete()">Delete</a>
                                     </td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
-{{--                        <div class="paginate">--}}
-{{--                            {{ $categories->links() }}--}}
-{{--                        </div>--}}
+                        <div class="paginate">
+                            {{ $products->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
