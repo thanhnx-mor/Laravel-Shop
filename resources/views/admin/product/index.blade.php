@@ -42,7 +42,8 @@
                                         <a href="{{ route('product.edit', ['id' => $product->id ]) }}"
                                            class="btn btn-secondary mr-2">Edit</a>
                                         <a href="{{ route('product.delete', ['id' => $product->id ]) }}"
-                                           class="btn btn-danger" onclick="onHandleDelete()">Delete</a>
+                                           data-url="{{ route('product.delete', ['id' => $product->id ]) }}"
+                                           class="btn btn-danger" id="btnDeleteProduct">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -57,9 +58,12 @@
         </div>
     </div>
 @endsection
-<script>
-  function onHandleDelete(e) {
-    confirm("Bạn có chắc chắn muốn xoá không?");
 
-  }
+@section('js')
+    <script src="{{ asset('js/admin/product/list.js') }}"></script>
+    <script src="{{ asset('vendors/sweetalert2/index.js') }}"></script>
+
+@endsection
+<script>
+
 </script>

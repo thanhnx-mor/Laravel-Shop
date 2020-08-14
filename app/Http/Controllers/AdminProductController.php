@@ -130,7 +130,7 @@ class AdminProductController extends Controller
                 $tagInstance  = $this->tag->firstOrCreate(['name' => $tagItem]);
                 $tagIds[] = $tagInstance->id;
             }
-            $product->tags()->sync($tagIds);
+            $product->tags()-> sync($tagIds);
             DB::commit();
             return redirect(route('product.index'));
         } catch (\Exception $exception) {
@@ -139,9 +139,25 @@ class AdminProductController extends Controller
         }
     }
 
-    public function delete()
+    public function delete(Request $request, $id)
     {
+        try {
+            $product = $this->product->find($id);
+            $product->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => $product
+            ], 200);
 
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Messages:' .$exception->getMessage(). '. Line: ' . $exception->getLine());
+            return response()->json([
+                'code' => 500,
+                'message' => 'failed'
+            ], 500);
+        }
     }
 
     public function create()
