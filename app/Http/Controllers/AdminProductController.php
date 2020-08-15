@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Category;
+use App\Http\Requests\ProductAddRequest;
 use App\Product;
 use App\ProductImage;
 use App\ProductTag;
@@ -42,7 +43,7 @@ class AdminProductController extends Controller
         return view('admin.product.index', compact('products'));
     }
 
-    public function store(Request $request)
+    public function store(ProductAddRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -60,7 +61,7 @@ class AdminProductController extends Controller
             }
             $product = $this->product->create($dataProductInit);
 
-            if ($request->hasFile('image_path')) {
+            if ($request->hasFile('image_path') && is_array($request->image_path)) {
                 foreach ($request->image_path as $fileItem) {
                     $dataProductImageDetail = $this->storageTraitUploadMultiple($fileItem, 'product');
                     $rawPayload = [
@@ -73,16 +74,18 @@ class AdminProductController extends Controller
 
             // Insert tags for product
 
-            foreach ($request->tags as $tagItem) {
-                $tagInstance  = $this->tag->firstOrCreate(['name' => $tagItem]);
-                $tagIds[] = $tagInstance->id;
+            if (isset($request->tags) && is_array($request->tags)) {
+                foreach ($request->tags as $tagItem) {
+                    $tagInstance  = $this->tag->firstOrCreate(['name' => $tagItem]);
+                    $tagIds[] = $tagInstance->id;
+                }
+                $product->tags()->attach($tagIds);
             }
-            $product->tags()->attach($tagIds);
             DB::commit();
             return redirect(route('product.index'));
         } catch (\Exception $exception) {
             DB::rollBack();
-            Log::error('Messages:' .$exception->getMessage(). '. Line: ' . $exception->getLine());
+            Log::error('Messages:' .$exception->getMessage(). '. ------Line: ' . $exception->getLine());
         }
 
     }

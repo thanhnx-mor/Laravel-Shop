@@ -11,7 +11,7 @@
 @section('content')
     <div class="content-wrapper">
        @include('partials.content-header', ['name' => 'Product', 'action' => 'Thêm mới sản phẩm'])
-        <div class="content">
+        <div class="c ontent">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 pb-3">
@@ -19,11 +19,24 @@
                             @csrf
                             <div class="form-group">
                                 <label for="product_name">Tên sản phẩm</label>
-                                <input type="text" class="form-control" id="product_name" name="name" placeholder="Vui lòng nhập tên sản phẩm">
+                                <input
+                                    type="text"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    id="product_name"
+                                    name="name"
+                                    placeholder="Vui lòng nhập tên sản phẩm"
+                                    value="{{ old('name') }}"
+                                >
+                                @error('name')
+                                <div class="alert alert-default-danger alert-custom">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="product_price">Giá sản phẩm</label>
-                                <input type="text" class="form-control" id="product_price" name="price" placeholder="Vui lòng nhập giá sản phẩm">
+                                <input type="text" value="{{ old('price') }}" class="form-control  @error('price') is-invalid @enderror" id="product_price" name="price" placeholder="Vui lòng nhập giá sản phẩm">
+                                @error('price')
+                                <div class="alert alert-default-danger alert-custom">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="product_future_image">Ảnh đại diện</label>
@@ -36,16 +49,24 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="contents">Nội dung</label>
-                                <textarea class="form-control tinymce_editor_init" id="contents" name="contents" rows="3"></textarea>
+                                <label for="content">Nội dung</label>
+                                <textarea class="form-control tinymce_editor_init @error('contents') is-invalid @enderror" id="contents" name="contents" rows="3">
+                                    {{ old('contents') }}
+                                </textarea>
+                                @error('content')
+                                <div class="alert alert-default-danger alert-custom">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="category_id">Chọn danh mục</label>
-                                <select class="form-control" id="category_id" name="category_id" multiple="multiple">
+                                <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id" multiple="multiple">
                                     <option value="0">Chọn danh mục</option>
                                     {!! $htmlOptions !!}
                                 </select>
+                                @error('category_id')
+                                <div class="alert alert-default-danger alert-custom">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
