@@ -25,6 +25,7 @@ class SliderAddRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required|max:255|unique:sliders,name,'.$this->post.'',
             'description' => 'required',
             'image_path' => 'required'
         ];
