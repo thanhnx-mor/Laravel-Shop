@@ -41,7 +41,7 @@
                             </tbody>
                         </table>
                         <div class="paginate">
-                            {{ $categories->links() }}
+                            {{ $menus->links() }}
                         </div>
                     </div>
                 </div>
