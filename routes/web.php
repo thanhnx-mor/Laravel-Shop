@@ -164,6 +164,35 @@ Route::prefix('admin')->group(function () {
             'uses' => 'AdminSettingController@delete',
         ]);
     });
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [
+            'as' => 'user.index',
+            'uses' => 'AdminUserController@index',
+        ]);
+        Route::get('/create', [
+            'as' => 'user.create',
+            'uses' => 'AdminUserController@create',
+        ]);
+        Route::post('/store', [
+            'as' => 'user.store',
+            'uses' => 'AdminUserController@store',
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'user.edit',
+            'uses' => 'AdminUserController@edit',
+        ]);
+
+        Route::post('/update/{id}', [
+            'as' => 'user.update',
+            'uses' => 'AdminUserController@update',
+        ]);
+
+        Route::get('/delete/{id}', [
+            'as' => 'user.delete',
+            'uses' => 'AdminUserController@delete',
+        ]);
+    });
 });
 
 
