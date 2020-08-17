@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
@@ -32,8 +33,21 @@ class AdminUserController extends Controller
         return view('admin.user.add', compact('roles'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
+        $dataInset = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ];
+
+        $user = $this->user->create($dataInset);
+        // Insert tags for product
+        if (isset($request->role_ids) && is_array($request->role_ids)) {
+            $user->roles()->attach($request->role_ids);
+        }
+
+        return redirect(route('user.index'));
     }
 }
