@@ -62,6 +62,7 @@
 @section('js')
     <script src="{{ asset('js/admin/product/list.js') }}"></script>
     <script src="{{ asset('vendors/sweetalert2/index.js') }}"></script>
+
 @endsection
 <script>
 

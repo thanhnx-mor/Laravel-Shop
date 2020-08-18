@@ -1,5 +1,5 @@
 $(function () {
-    $(document).on('click', '#btnDeleteSlider', showAlert)
+    $(document).on('click', '#btnDelete', showAlert)
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -14,7 +14,7 @@ $(function () {
         const current = $(this);
         let urlRequest =  $(this).data('url');
         swalWithBootstrapButtons.fire({
-            title: 'Xóa slider!',
+            title: 'Xóa!',
             text: "Bạn sẽ không thể khôi phục được nó!",
             icon: 'warning',
             showCancelButton: true,
@@ -36,20 +36,10 @@ $(function () {
 
                 swalWithBootstrapButtons.fire(
                     'Xóa thành công!',
-                    'Slider đã được xóa thành công!.',
+                    'Xóa thành công!.',
                     'success'
                 )
             }
-            // else if (
-            //     /* Read more about handling dismissals below */
-            //     result.dismiss === Swal.DismissReason.cancel
-            // ) {
-            //     swalWithBootstrapButtons.fire(
-            //         'Hủy bỏ',
-            //         'Hủy bỏ xóa sản phẩm!',
-            //         'error'
-            //     )
-            // }
         })
     }
 

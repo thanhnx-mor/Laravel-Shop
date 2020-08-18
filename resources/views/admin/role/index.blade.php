@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Quản lý Users</title>
+    <title>Quản lý Roles</title>
 @endsection
 @section('content')
     <div class="content-wrapper">
-        @include('partials.content-header', ['name' => 'Menu', 'action' => 'Danh sách Users'])
+        @include('partials.content-header', ['name' => 'Menu', 'action' => 'Danh sách Roles'])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex justify-content-end">
-                            <a href="{{ route('user.create') }}" class="btn btn-primary mb-2">
-                                Thêm mới user
+                            <a href="{{ route('role.create') }}" class="btn btn-primary mb-2">
+                                Thêm mới Role
                             </a>
                         </div>
                     </div>
@@ -21,32 +21,30 @@
                             <thead class="thead-dark">
                             <tr>
                                 <th scope="col">STT</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">Chức danh</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Tên vai trò</th>
+                                <th scope="col">Mô tả vai trò</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $key => $user)
+                            @foreach($roles as $key => $role)
                                 <tr>
                                     <th scope="row">{{ $key }}</th>
-                                    <td>{{ $user['name'] }}</td>
-                                    <td>{{ $user->display_name }}</td>
-                                    <td>{{ $user['email'] }}</td>
+                                    <td>{{ $role['name'] }}</td>
+                                    <td>{{ $role['display_name'] }}</td>
                                     <td>
-                                        <a href="{{ route('user.edit', ['id' => $user->id ]) }}"
+                                        <a href="{{ route('role.edit', ['id' => $role->id ]) }}"
                                            class="btn btn-secondary mr-2">Edit</a>
-                                        <a href="{{ route('user.delete', ['id' => $user->id ]) }}"
-                                           data-url="{{ route('user.delete', ['id' => $user->id ]) }}"
-                                           class="btn btn-danger" id="btnDelete">Delete</a>
+                                        <a href="{{ route('role.delete', ['id' => $role->id ]) }}"
+                                           data-url="{{ route('role.delete', ['id' => $role->id ]) }}"
+                                           class="btn btn-danger" id="btnDeleteSlider">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                         <div class="paginate">
-                            {{ $users->links() }}
+                            {{ $roles->links() }}
                         </div>
                     </div>
                 </div>
