@@ -36,15 +36,15 @@
                                         </h5>
                                     </div>
 
-                                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                    <div id="collapseOne" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
                                             <div id="accordion-child">
                                                 @foreach($permissions as $permision)
                                                     <div class="card">
                                                         <div class="card-header card-header--child">
                                                             <h5 class="mb-0 d-flex">
-                                                                <div class="form-check d-flex align-items-center justify-content-center ml-2" data-target="#collapse{{$permision->id}}" data-toggle="collapse">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="check-all">
+                                                                <div class="form-check d-flex align-items-center justify-content-center ml-2">
+                                                                    <input class="form-check-input checkbox_parent" type="checkbox" value="">
                                                                 </div>
                                                                 <a class="btn btn-link d-flex align-items-center" data-toggle="collapse" data-target="#collapse{{$permision->id}}" aria-expanded="true" aria-controls="collapse{{$permision->id}}">
                                                                     <strong>{{ $permision->name }}</strong>
@@ -57,37 +57,13 @@
                                                                     @foreach($permision->permissionChildren as $rolePermisson)
                                                                         <div class="col-md-3">
                                                                             <div class="form-check">
-                                                                                <input class="form-check-input" type="checkbox" value="" id="{{ $rolePermisson->name }}">
+                                                                                <input class="form-check-input checkbox_children" type="checkbox" value="{{ $rolePermisson->id }}" name="permisson_id[]" id="{{ $rolePermisson->name }}">
                                                                                 <label class="form-check-label" for="{{ $rolePermisson->name }}">
                                                                                     {{ $rolePermisson->name }}
                                                                                 </label>
                                                                             </div>
                                                                         </div>
                                                                     @endforeach
-
-{{--                                                                    <div class="col-md-3">--}}
-{{--                                                                        <div class="form-check">--}}
-{{--                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">--}}
-{{--                                                                            <label class="form-check-label" for="defaultCheck1">--}}
-{{--                                                                                Thêm sản phẩm--}}
-{{--                                                                            </label>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div><div class="col-md-3">--}}
-{{--                                                                        <div class="form-check">--}}
-{{--                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">--}}
-{{--                                                                            <label class="form-check-label" for="defaultCheck1">--}}
-{{--                                                                                Sửa sản phẩm--}}
-{{--                                                                            </label>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                    <div class="col-md-3">--}}
-{{--                                                                        <div class="form-check">--}}
-{{--                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">--}}
-{{--                                                                            <label class="form-check-label" for="defaultCheck1">--}}
-{{--                                                                                Xoá sản phẩm--}}
-{{--                                                                            </label>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -107,10 +83,12 @@
     </div>
 @endsection
 
-<script>
-    $(() => {
-        console.log('1');
+@section('js')
+    <script>
         $('#collapse').collapse()
         $('#headingOne-child').collapse()
-    })
-</script>
+        $('.checkbox_parent').on('click', function () {
+            $(this).parents('.card').find('.checkbox_children').prop('checked', $(this).prop('checked'))
+        });
+    </script>
+@endsection
