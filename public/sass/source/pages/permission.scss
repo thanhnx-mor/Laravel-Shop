@@ -1,0 +1,10 @@
+.card-header {
+    color: #333333;
+    &--child {
+        padding: 0;
+        background: #cecece;
+    }
+    &--parent {
+        //background: #89c9b8;
+    }
+}
