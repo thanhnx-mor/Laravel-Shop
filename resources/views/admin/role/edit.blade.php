@@ -1,27 +1,27 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Thêm mới vai trò</title>
+    <title>Cập nhật vai trò</title>
 @endsection
 @section('content')
     <div class="content-wrapper">
-       @include('partials.content-header', ['name' => 'Menu', 'action' => 'Thêm mới vai trò'])
+       @include('partials.content-header', ['name' => 'Menu', 'action' => 'Cập nhật vai trò'])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="{{ route('role.store') }}" method="POST">
+                        <form action="{{ route('role.update', ['id' => $role->id]) }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="slider_name">Tên vai trò </label>
-                                <input type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" id="slider_name" name="name" placeholder="Vui lòng nhập tên slider">
+                                <input type="text" value="{{ $role->name }}" class="form-control @error('name') is-invalid @enderror" id="slider_name" name="name" placeholder="Vui lòng nhập tên slider">
                                 @error('name')
                                 <div class="alert alert-default-danger alert-custom">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="display_name">Mô tả vai trò</label>
-                                <input type="text" class="form-control @error('display_name') is-invalid @enderror" id="display_name" name="display_name">
+                                <input type="text" class="form-control @error('display_name') is-invalid @enderror" value="{{ $role->display_name }}" id="display_name" name="display_name">
                                 @error('display_name')
                                 <div class="alert alert-default-danger alert-custom">{{ $message }}</div>
                                 @enderror
@@ -57,7 +57,7 @@
                                                                     @foreach($permision->permissionChildren as $rolePermisson)
                                                                         <div class="col-md-3">
                                                                             <div class="form-check">
-                                                                                <input class="form-check-input checkbox_children" type="checkbox" value="{{ $rolePermisson->id }}" name="permisson_id[]" id="{{ $rolePermisson->name }}">
+                                                                                <input class="form-check-input checkbox_children" type="checkbox" {{ $permissionChecked->contains('id', $rolePermisson->id) ? 'checked' : '' }} value="{{ $rolePermisson->id }}" name="permisson_id[]" id="{{ $rolePermisson->name }}">
                                                                                 <label class="form-check-label" for="{{ $rolePermisson->name }}">
                                                                                     {{ $rolePermisson->name }}
                                                                                 </label>
@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Thêm mới</button>
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
                         </form>
                     </div>
                 </div>
